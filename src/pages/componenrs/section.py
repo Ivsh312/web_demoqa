@@ -13,13 +13,13 @@ class Section(Element, dict):
         self.inner_components = inner_components
 
     def __getitem__(self, key: str) -> WebElement:
-        return self.inner_components.get(key)().__get__(instance=self, owner=self)
+        return self.inner_components.get(key).__get__(instance=self, owner=self)
 
     def values(self):
-        return [i().__get__(instance=self, owner=self) for i in self.inner_components.values()]
+        return [i.__get__(instance=self, owner=self) for i in self.inner_components.values()]
 
     def items(self):
         return [
-            (key, value().__get__(instance=self, owner=self))
+            (key, value.__get__(instance=self, owner=self))
             for key, value in self.inner_components.items()
         ]
