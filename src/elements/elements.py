@@ -28,7 +28,6 @@ class BaseElement:
         element.clear()
         element.send_keys(value)
 
-
 class Element(BaseElement):
     ...
 
@@ -60,8 +59,4 @@ class Cell(Element):
 class RadioButton(Button):
     ...
 
-
-    # def __get__(self, instance,owner):
-    #
-    #     return super().__get__(instance,owner)
 
