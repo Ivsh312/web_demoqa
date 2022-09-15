@@ -16,25 +16,27 @@ class BottomMenu(BaseMenu):
     site_map_point = Link(*site_map_point)
     contact_us_point = Link(*contact_us_point)
 
-    def __init__(self):
-        menu_items = {
-            HOME_POINT: self.home_link,
-            ABOUT_POINT: self.about_point,
-            SERVICES_POINT: self.services_point,
-            PRODUCTS_POINT: self.products_point,
-            LOCATIONS_POINT: self.locations_point,
-            FORUM_POINT: self.forum_point,
-            SITE_MAP_POINT: self.site_map_point,
-            CONTACT_US_POINT: self.contact_us_point
+    def __init__(self, webdriver: WebDriver):
+        super().__init__(webdriver)
+        self.menu_items = {
+            HOME_POINT: lambda: self.home_link,
+            ABOUT_POINT: lambda: self.about_point,
+            SERVICES_POINT: lambda: self.services_point,
+            PRODUCTS_POINT: lambda: self.products_point,
+            LOCATIONS_POINT: lambda: self.locations_point,
+            FORUM_POINT: lambda: self.forum_point,
+            SITE_MAP_POINT: lambda: self.site_map_point,
+            CONTACT_US_POINT: lambda: self.contact_us_point
         }
     def select_item(self, item: Union[str, int]) -> None:
-        menu_items_by_index = dict(zip([i for i in range(len(self.menu_items))], self.menu_items.values()))
+        menu_items_by_index = dict(zip(
+            [i for i in range(len(self.menu_items))], self.menu_items.values()))
         if isinstance(item, str):
-            menu_item = self.menu_items.get(item)
+            menu_item = self.menu_items.get(item)()
         elif isinstance(item, int):
-            menu_item = menu_items_by_index.get(item)
+            menu_item = menu_items_by_index.get(item)()
         else:
-            raise TypeError(f'Unsaported type of menu_item {type(item)}')
+            raise TypeError(f'Unsupported type of menu_item {type(item)}')
         menu_item.click()
 
 
