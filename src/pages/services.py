@@ -9,7 +9,7 @@ from src.data.services import *
 from src.pages.componenrs.table import Table
 
 
-class Services(BasePage):
+class ServicesPage(BasePage):
 
     _currents_page_url = SERVICES_PAGE_URL
 
@@ -25,7 +25,7 @@ class Services(BasePage):
 
 if __name__ == '__main__':
     path_to_firefox = os.path.abspath('../../drivers/chromedriver.exe')
-    spage = Services(webdriver=webdriver.Chrome(path_to_firefox))
+    spage = ServicesPage(webdriver=webdriver.Chrome(path_to_firefox))
     spage.webdriver.get(url=SERVICES_PAGE_URL)
     print(spage.table_name.text)
     print(spage.table[(1, 1)].text)

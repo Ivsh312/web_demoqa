@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 
-BASE_URL = "https://parabank.parasoft.com/parabank/index.htm?ConnType=JDBC"
+BASE_URL = "https://parabank.parasoft.com/parabank/index.htm"
 LOGIN_PAGE_URL = "https://parabank.parasoft.com/parabank/index.htm?ConnType=JDBC"
 
 login_input_fild = ('//*[@id="loginPanel"]/form/div[1]/input', By.XPATH)

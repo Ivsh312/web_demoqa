@@ -6,6 +6,7 @@ from src.elements.elements import *
 from src.pages.componenrs.menu_elements.menu import BaseMenu
 
 
+
 class BottomMenu(BaseMenu):
     home_link = Link(*home_point)
     about_point = Link(*about_point)
@@ -28,15 +29,17 @@ class BottomMenu(BaseMenu):
             SITE_MAP_POINT: lambda: self.site_map_point,
             CONTACT_US_POINT: lambda: self.contact_us_point
         }
+
     def select_item(self, item: Union[str, int]) -> None:
         menu_items_by_index = dict(zip(
             [i for i in range(len(self.menu_items))], self.menu_items.values()))
         if isinstance(item, str):
-            menu_item = self.menu_items.get(item)()
+            menu_item = self.menu_items.get(item)
         elif isinstance(item, int):
-            menu_item = menu_items_by_index.get(item)()
+            menu_item = menu_items_by_index.get(item)
         else:
             raise TypeError(f'Unsupported type of menu_item {type(item)}')
-        menu_item.click()
+        menu_item().click()
+
 
 
