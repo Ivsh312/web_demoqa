@@ -41,9 +41,6 @@ class AdminPage(MainPage):
         self.data_access_mode_section = Section(
             webdriver, section_locator=data_access_mode, inner_components=self.data_access_mode)
 
-    def change_jms_status(self) -> str:
-        self.jms_service_section[STARTUP_BTN].click()
-        return self.current_status_indicator.text
 
     def click_radiobutton(self, item: str) -> dict:
         self.data_access_mode_section[item].click()

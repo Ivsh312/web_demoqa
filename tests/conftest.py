@@ -3,10 +3,10 @@ import configparser
 import pytest
 from selenium import webdriver
 
-from src.data.main_page import BASE_URL
 import src.pages.main_page as main_page
+from src.data.main_page import BASE_URL
 from .data.constants import *
-
+from webdriver_manager.chrome import ChromeDriverManager
 
 @pytest.fixture(scope='session')
 def credentials() -> tuple:
@@ -17,11 +17,11 @@ def credentials() -> tuple:
     return username, password
 
 
-@pytest.fixture(scope='session')
-def driver(app_type=CHROM_TYPE_APP) -> webdriver:
+@pytest.fixture(scope='session', params=supported_browsers)
+def driver(request) -> webdriver:
     webdriver_instance = None
-    if app_type == CHROM_TYPE_APP:
-        webdriver_instance = webdriver.Chrome()
+    if request.param == CHROM_TYPE_APP:
+        webdriver_instance = webdriver.Chrome(ChromeDriverManager().install())
         yield webdriver_instance
     if webdriver_instance is not None:
         webdriver_instance.close()

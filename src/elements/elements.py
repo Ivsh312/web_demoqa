@@ -5,9 +5,11 @@ from selenium.webdriver.remote.webdriver import WebDriver, WebElement
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
+from src.data.constants import *
+
 
 class BaseElement:
-    AWAIT_TIMEOUT = 10
+    AWAIT_TIMEOUT = START_AWAIT_TIMEOUT
 
     def __init__(self, value, by=By.CSS_SELECTOR):
         self.by = by
@@ -58,5 +60,4 @@ class Cell(Element):
 
 class RadioButton(Button):
     ...
-
 

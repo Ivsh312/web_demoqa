@@ -31,7 +31,7 @@ class TestAdminPage:
 
     @pytest.fixture(scope='function', params=menu_expected_data.items(), ids=[
         f"menu point: {index}, page {page().__name__} " for index, page in menu_expected_data.items()])
-    def expected_page(self, main_page, request)->tuple:
+    def expected_page(self, main_page, request) -> tuple:
         link_number, page = request.param
         current_page = page()(main_page.webdriver)
         return current_page, link_number
