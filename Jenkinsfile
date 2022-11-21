@@ -6,8 +6,10 @@ pipeline {
         sh 'python3 --version'
       }
     }
-   stage('Run pytest'){
-       sh "pytest test_main_page.py"
-    }    
+  steps {
+
+        sh 'py.test tests/test_main_page.py'
+
+    }   
   }
 }
