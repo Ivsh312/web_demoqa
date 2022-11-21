@@ -6,11 +6,9 @@ pipeline {
         sh 'python3 --version'
       }
     }
-    stage("test PythonEnv") {
-    withPythonEnv('python3') {
-        sh 'pip install pytest'
-        sh 'pytest mytest.py'
-      }
+   stage('Run pytest'){
+       sh "pytest test_main_page.py"
+      }    
     }
   }
 }
