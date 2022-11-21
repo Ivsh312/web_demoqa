@@ -8,7 +8,6 @@ pipeline {
     }
    stage('Run pytest'){
        sh "pytest test_main_page.py"
-      }    
-    }
+    }    
   }
 }
