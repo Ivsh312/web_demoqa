@@ -5,11 +5,9 @@ pipeline {
       steps {
         sh 'python3 --version'
       }
-    }
-  steps {
-
+       steps {
         sh 'py.test tests/test_main_page.py'
-
-    }   
+    }
+    }
   }
 }
