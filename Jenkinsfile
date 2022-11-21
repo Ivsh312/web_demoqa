@@ -2,6 +2,6 @@ node
 {
    stage('Run pytest') 
    {
-       bat "pytest mytest.py"
+       sh "pytest mytest.py"
    }    
 }
