@@ -1,4 +1,4 @@
-
+#!groovy
 stage('Python pytest Tests') {
 	dir('python/pytest') {
 		sh 'virtualenv -p /usr/bin/python3 venv'
