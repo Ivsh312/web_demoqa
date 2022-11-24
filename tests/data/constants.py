@@ -1,6 +1,6 @@
 chrome_driver_path = '../../drivers/chromedriver.exe'
 
-cred_path = './config/config.txt'
+cred_path = '../config/config.txt'
 
 CHROM_TYPE_APP = 'CHROME'
 
