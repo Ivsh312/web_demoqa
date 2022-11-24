@@ -8,6 +8,7 @@ from src.data.main_page import BASE_URL
 from .data.constants import *
 from webdriver_manager.firefox import GeckoDriverManager
 
+
 @pytest.fixture(scope='session')
 def credentials() -> tuple:
     config = configparser.ConfigParser()
@@ -21,7 +22,7 @@ def credentials() -> tuple:
 def driver(request) -> webdriver:
     webdriver_instance = None
     if request.param == FIREFOX_TYPE_APP:
-        webdriver_instance = webdriver.Firefox(GeckoDriverManager().install())
+        webdriver_instance = webdriver.Firefox(executable_path=GeckoDriverManager().install())
         yield webdriver_instance
     if webdriver_instance is not None:
         webdriver_instance.close()
