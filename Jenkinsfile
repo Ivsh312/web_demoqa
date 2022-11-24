@@ -1,7 +1,10 @@
-stage("test PythonEnv") {
-
-    withPythonEnv('python3') {
-        sh 'pip install pytest'
-        sh 'pytest mytest.py'
+pipeline {
+    agent any 
+    stages {
+        stage('Stage 1') {
+            steps {
+                echo 'Hello world!' 
+            }
+        }
     }
 }
