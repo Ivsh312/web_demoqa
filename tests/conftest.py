@@ -6,7 +6,7 @@ from selenium import webdriver
 import src.pages.main_page as main_page
 from src.data.main_page import BASE_URL
 from .data.constants import *
-from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 
 @pytest.fixture(scope='session')
 def credentials() -> tuple:
@@ -21,7 +21,7 @@ def credentials() -> tuple:
 def driver(request) -> webdriver:
     webdriver_instance = None
     if request.param == CHROM_TYPE_APP:
-        webdriver_instance = webdriver.Chrome(ChromeDriverManager().install())
+        webdriver_instance = webdriver.Chrome(GeckoDriverManager().install())
         yield webdriver_instance
     if webdriver_instance is not None:
         webdriver_instance.close()
