@@ -20,8 +20,8 @@ def credentials() -> tuple:
 @pytest.fixture(scope='session', params=supported_browsers)
 def driver(request) -> webdriver:
     webdriver_instance = None
-    if request.param == CHROM_TYPE_APP:
-        webdriver_instance = webdriver.Chrome(GeckoDriverManager().install())
+    if request.param == FIREFOX_TYPE_APP:
+        webdriver_instance = webdriver.Firefox(GeckoDriverManager().install())
         yield webdriver_instance
     if webdriver_instance is not None:
         webdriver_instance.close()
