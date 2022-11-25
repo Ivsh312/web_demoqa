@@ -18,17 +18,7 @@ from selenium.webdriver import FirefoxOptions
 screen_shoot_node = 'test_screen_shoot\\'
 screen_shoot_extenuation = '.png'
 
-@pytest.fixture(scope='session')
-def credentials() -> tuple:
-    config = configparser.ConfigParser()
-    config.read(cred_path)
-    username = config[BASE_CREDENTIALS_SECTION_NAME][USERNAME_WORD]
-    password = config[BASE_CREDENTIALS_SECTION_NAME][PASSWORD_WORD]
-    return username, password
 
-
-
-# set up a hook to be able to check if a test has failed
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     # execute all other hooks to obtain the report object
@@ -41,29 +31,23 @@ def pytest_runtest_makereport(item, call):
     setattr(item, "rep_" + rep.when, rep)
 
 
-    # driver.save_screenshot(file_name)
+@pytest.fixture(scope='session')
+def credentials() -> tuple:
+    config = configparser.ConfigParser()
+    config.read(cred_path)
+    username = config[BASE_CREDENTIALS_SECTION_NAME][USERNAME_WORD]
+    password = config[BASE_CREDENTIALS_SECTION_NAME][PASSWORD_WORD]
+    return username, password
 
-# @pytest.fixture(scope="function", autouse=True)
-# def something(request, driver):
-#     yield
-#     print(12)
-#     if request.node.rep_setup.failed:
-#         print("setting up a test failed!", request.node.nodeid)
-#         time.sleep(1)
-#         file_name = f'{request.node.nodeid}_{datetime.today().strftime("%Y-%m-%d_%H:%M")}.png'.replace("/",
-#                                                                                           "_").replace(
-#             "::", "__")
-#         driver.save_screenshot(file_name)
 
 @pytest.fixture(scope='session', params=supported_browsers)
 def driver(request) -> webdriver:
     webdriver_instance = None
     if request.param == FIREFOX_TYPE_APP:
-        opts = FirefoxOptions()
-        opts.add_argument("--headless")
-        webdriver_instance = webdriver.Firefox(executable_path=GeckoDriverManager().install(),
-                                               options=opts)
-
+        # opts = FirefoxOptions()
+        # opts.add_argument("--headless")
+        webdriver_instance = webdriver.Firefox(executable_path=GeckoDriverManager().install())#,
+                                               #options=opts)
         yield webdriver_instance
     if webdriver_instance is not None:
         webdriver_instance.close()
@@ -105,5 +89,6 @@ def start_page(driver) -> webdriver:
 
 @pytest.fixture(scope='module')
 def authorization(start_page, credentials) -> webdriver:
-    start_page.login(*credentials)
+    if not start_page.is_logged_in:
+        start_page.login(*credentials)
     return start_page

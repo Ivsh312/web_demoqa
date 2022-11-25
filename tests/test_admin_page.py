@@ -21,3 +21,6 @@ class TestAdminPage:
             assert True
         except BasePageException:
             assert False, "indicator dont changed status after click switcher"
+
+    def test_for_test(self, driver):
+        assert False
