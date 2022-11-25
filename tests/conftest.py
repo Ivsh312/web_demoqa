@@ -44,10 +44,10 @@ def credentials() -> tuple:
 def driver(request) -> webdriver:
     webdriver_instance = None
     if request.param == FIREFOX_TYPE_APP:
-        # opts = FirefoxOptions()
-        # opts.add_argument("--headless")
-        webdriver_instance = webdriver.Firefox(executable_path=GeckoDriverManager().install())#,
-                                               #options=opts)
+        opts = FirefoxOptions()
+        opts.add_argument("--headless")
+        webdriver_instance = webdriver.Firefox(executable_path=GeckoDriverManager().install(),
+                                               options=opts)
         yield webdriver_instance
     if webdriver_instance is not None:
         webdriver_instance.close()
