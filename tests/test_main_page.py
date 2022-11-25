@@ -37,7 +37,7 @@ class TestAdminPage:
         return current_page, link_number
 
     def test_url(self, main_page):
-        assert not main_page.is_current_page()
+        assert main_page.is_current_page()
 
     def test_navigation(self, main_page, expected_page):
         current_page, link_number = expected_page
