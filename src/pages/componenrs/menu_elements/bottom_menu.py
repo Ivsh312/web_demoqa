@@ -40,6 +40,7 @@ class BottomMenu(BaseMenu):
         else:
             raise TypeError(f'Unsupported type of menu_item {type(item)}')
         menu_item().click()
+        print(self.webdriver.current_url)
 
 
 
