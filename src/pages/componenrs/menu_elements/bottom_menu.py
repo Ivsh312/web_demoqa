@@ -1,3 +1,4 @@
+import time
 from typing import Union
 
 # from selenium.webdriver.remote.webdriver import WebDriver
@@ -39,7 +40,11 @@ class BottomMenu(BaseMenu):
             menu_item = menu_items_by_index.get(item)
         else:
             raise TypeError(f'Unsupported type of menu_item {type(item)}')
+        time.sleep(1)
+        print(item)
+        print(type(menu_item))
         menu_item().click()
+        time.sleep(1)
         print(self.webdriver.current_url)
 
 
