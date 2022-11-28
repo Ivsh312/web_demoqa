@@ -42,7 +42,7 @@ class BottomMenu(BaseMenu):
             raise TypeError(f'Unsupported type of menu_item {type(item)}')
         time.sleep(1)
         print(item)
-        print(type(menu_item))
+        print(type(menu_item()))
         menu_item().click()
         time.sleep(1)
         print(self.webdriver.current_url)
