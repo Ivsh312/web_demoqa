@@ -56,10 +56,8 @@ def driver(request) -> webdriver:
 # make a screenshot with a date and time
 def take_screenshot(driver, nodeid):
     time.sleep(1)
-    print(12)
     allure.attach(driver.get_screenshot_as_png(), name="Screenshot",
                   attachment_type=AttachmentType.PNG)
-    print(13)
     # file_name = f'{nodeid}_'.replace("/", "_").replace("::", "__").replace('.', '_')
     # print(file_name)
     # save_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), screen_shoot_node, file_name+screen_shoot_extenuation)
