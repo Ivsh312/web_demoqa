@@ -48,6 +48,7 @@ def driver(request) -> webdriver:
         options.add_argument("--headless")
         options.add_argument("window-size=1400,600")
         options.add_argument("--no-sandbox")
+        options.add_argument("--disable-gpu")
         webdriver_instance = webdriver.Firefox(executable_path=GeckoDriverManager().install(),
                                                options=options)
         yield webdriver_instance
