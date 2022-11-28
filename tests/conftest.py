@@ -45,8 +45,9 @@ def driver(request) -> webdriver:
     webdriver_instance = None
     if request.param == FIREFOX_TYPE_APP:
         options = FirefoxOptions()
-        # options.add_argument("--headless")
+        options.add_argument("--headless")
         options.add_argument("window-size=1400,600")
+        options.add_argument("--no-sandbox")
         webdriver_instance = webdriver.Firefox(executable_path=GeckoDriverManager().install(),
                                                options=options)
         yield webdriver_instance
