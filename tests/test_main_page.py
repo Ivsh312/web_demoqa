@@ -44,10 +44,6 @@ class TestAdminPage:
     def test_navigation(self, main_page, expected_page):
         current_page, link_number = expected_page
         main_page.button_menu.select_item(expected_page[1])
-        main_page.button_menu.select_item(2)
-        main_page.button_menu.select_item(2)
-        main_page.button_menu.select_item(2)
-        main_page.button_menu.select_item(2)
         print(main_page.webdriver.current_url)
 
         assert current_page.is_current_page(), f'menu point {link_number}, dont lead to {type(current_page).__name__}'
