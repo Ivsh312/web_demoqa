@@ -28,6 +28,7 @@ class TestAdminPage:
     @pytest.fixture(scope='function')
     def main_page(self, authorization) -> MainPage:
         authorization.webdriver.get(url=BASE_URL)
+        print('main_page')
         return MainPage(webdriver=authorization.webdriver)
 
     @pytest.fixture(scope='function', params=menu_expected_data.items(), ids=[
