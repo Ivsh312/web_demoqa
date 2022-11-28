@@ -55,7 +55,7 @@ def driver(request) -> webdriver:
 
 
 # make a screenshot with a date and time
-def take_screenshot(driver, nodeid):
+def take_screenshot(driver):
     time.sleep(1)
     allure.attach(driver.get_screenshot_as_png(), name="Screenshot",
                   attachment_type=AttachmentType.PNG)
@@ -77,7 +77,7 @@ def failed_check(request):
     elif request.node.rep_setup.passed:
         if request.node.rep_call.failed:
             driver = request.node.funcargs['driver']
-            take_screenshot(driver, request.node.nodeid)
+            take_screenshot(driver)
 
 
 
