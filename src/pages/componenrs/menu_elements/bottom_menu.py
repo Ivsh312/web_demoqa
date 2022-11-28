@@ -43,6 +43,7 @@ class BottomMenu(BaseMenu):
         time.sleep(1)
         print(item)
         print(menu_item().is_displayed())
+        print(menu_item().is_enabled())
         menu_item().click()
         time.sleep(1)
         print(self.webdriver.current_url)
