@@ -98,4 +98,5 @@ def start_page(driver) -> webdriver:
 def authorization(start_page, credentials) -> webdriver:
     if not start_page.is_logged_in:
         start_page.login(*credentials)
+        take_screenshot(start_page.webdriver)
     return start_page
