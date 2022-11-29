@@ -36,9 +36,11 @@ def credentials() -> tuple:
     config = configparser.ConfigParser()
     config.read(cred_path)
     username = config[BASE_CREDENTIALS_SECTION_NAME][USERNAME_WORD]
-    print(username)
+    with allure.step(username):
+        print(username)
     password = config[BASE_CREDENTIALS_SECTION_NAME][PASSWORD_WORD]
-    print(password)
+    with allure.step(password):
+        print(password)
     return username, password
 
 
