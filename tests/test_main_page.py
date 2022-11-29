@@ -28,7 +28,6 @@ class TestAdminPage:
     @pytest.fixture(scope='function')
     def main_page(self, authorization) -> MainPage:
         authorization.webdriver.get(url=BASE_URL)
-        print('main_page')
         return MainPage(webdriver=authorization.webdriver)
 
     @pytest.fixture(scope='function', params=menu_expected_data.items(), ids=[
@@ -44,6 +43,4 @@ class TestAdminPage:
     def test_navigation(self, main_page, expected_page):
         current_page, link_number = expected_page
         main_page.button_menu.select_item(expected_page[1])
-        print(main_page.webdriver.current_url)
-
         assert current_page.is_current_page(), f'menu point {link_number}, dont lead to {type(current_page).__name__}'
