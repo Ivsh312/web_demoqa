@@ -36,11 +36,7 @@ def credentials() -> tuple:
     config = configparser.ConfigParser()
     config.read(cred_path)
     username = config[BASE_CREDENTIALS_SECTION_NAME][USERNAME_WORD]
-    with allure.step(username):
-        print(username)
     password = config[BASE_CREDENTIALS_SECTION_NAME][PASSWORD_WORD]
-    with allure.step(password):
-        print(password)
     return username, password
 
 
@@ -65,22 +61,14 @@ def driver(request) -> webdriver:
 
 # make a screenshot with a date and time
 def take_screenshot(driver):
-    time.sleep(1)
     allure.attach(driver.get_screenshot_as_png(), name="Screenshot",
                   attachment_type=AttachmentType.PNG)
-    # file_name = f'{nodeid}_'.replace("/", "_").replace("::", "__").replace('.', '_')
-    # print(file_name)
-    # save_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), screen_shoot_node, file_name+screen_shoot_extenuation)
-    # # print(save_path)
-    # print(driver.save_screenshot(save_path))
 
 
 # check if a test has failed
 @pytest.fixture(scope="function", autouse=True)
 def failed_check(request):
     yield
-    # request.node is an "item" because we use the default
-    # "function" scope
     if request.node.rep_setup.failed:
         print("setting up a test failed!", request.node.nodeid)
     elif request.node.rep_setup.passed:
