@@ -36,7 +36,9 @@ def credentials() -> tuple:
     config = configparser.ConfigParser()
     config.read(cred_path)
     username = config[BASE_CREDENTIALS_SECTION_NAME][USERNAME_WORD]
+    print(username)
     password = config[BASE_CREDENTIALS_SECTION_NAME][PASSWORD_WORD]
+    print(password)
     return username, password
 
 
@@ -62,7 +64,6 @@ def driver(request) -> webdriver:
 # make a screenshot with a date and time
 def take_screenshot(driver):
     time.sleep(1)
-    print('take_screenshot')
     allure.attach(driver.get_screenshot_as_png(), name="Screenshot",
                   attachment_type=AttachmentType.PNG)
     # file_name = f'{nodeid}_'.replace("/", "_").replace("::", "__").replace('.', '_')
@@ -98,5 +99,4 @@ def start_page(driver) -> webdriver:
 def authorization(start_page, credentials) -> webdriver:
     if not start_page.is_logged_in:
         start_page.login(*credentials)
-        take_screenshot(start_page.webdriver)
     return start_page
