@@ -13,7 +13,7 @@ from src.pages.services_page import ServicesPage
 from src.pages.site_map_page import SiteMapPage
 
 
-class TestAdminPage:
+class TestMainPage:
     menu_expected_data = {
         0: lambda: MainPage,
         1: lambda: AboutPage,
@@ -24,11 +24,21 @@ class TestAdminPage:
         6: lambda: SiteMapPage,
         7: lambda: ContactUsPage
     }
+    @pytest.fixture(scope='class')
+    def main_page_settings(self, authorization) -> MainPage:
+        try:
+            authorization.webdriver.get(url=BASE_URL)
+            yield MainPage(webdriver=authorization.webdriver)
+        finally:
+            authorization.webdriver.get(url=BASE_URL)
 
     @pytest.fixture(scope='function')
-    def main_page(self, authorization) -> MainPage:
-        authorization.webdriver.get(url=BASE_URL)
-        return MainPage(webdriver=authorization.webdriver)
+    def main_page(self, main_page_settings) -> MainPage:
+        try:
+            main_page_settings.webdriver.get(url=BASE_URL)
+            yield MainPage(webdriver=main_page_settings.webdriver)
+        finally:
+            main_page_settings.webdriver.get(url=BASE_URL)
 
     @pytest.fixture(scope='function', params=menu_expected_data.items(), ids=[
         f"menu point: {index}, page {page().__name__} " for index, page in menu_expected_data.items()])

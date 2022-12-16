@@ -20,7 +20,7 @@ screen_shoot_extenuation = '.png'
 
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
-def pytest_runtest_makereport(item, call):
+def pytest_runtest_make_report(item, call):
     # execute all other hooks to obtain the report object
     outcome = yield
     rep = outcome.get_result()
@@ -43,20 +43,22 @@ def credentials() -> tuple:
 @pytest.fixture(scope='session', params=supported_browsers)
 def driver(request) -> webdriver:
     webdriver_instance = None
-    if request.param == FIREFOX_TYPE_APP:
-        options = FirefoxOptions()
-        options.add_argument("--headless")
-        options.add_argument("--start-maximized")
-        options.add_argument("--disable-extensions")
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-gpu")
-        options.add_argument('--disable-dev-shm-usage')
-        options.add_argument('--ignore-certificate-errors')
-        webdriver_instance = webdriver.Firefox(executable_path=GeckoDriverManager().install(),
-                                               options=options)
-        yield webdriver_instance
-    if webdriver_instance is not None:
-        webdriver_instance.close()
+    try:
+        if request.param == FIREFOX_TYPE_APP:
+            options = FirefoxOptions()
+            options.add_argument("--headless")
+            options.add_argument("--start-maximized")
+            options.add_argument("--disable-extensions")
+            options.add_argument("--no-sandbox")
+            options.add_argument("--disable-gpu")
+            options.add_argument('--disable-dev-shm-usage')
+            options.add_argument('--ignore-certificate-errors')
+            webdriver_instance = webdriver.Firefox(executable_path=GeckoDriverManager().install(),
+                                                   options=options)
+            yield webdriver_instance
+    finally:
+        if webdriver_instance is not None:
+            webdriver_instance.close()
 
 
 # make a screenshot with a date and time
